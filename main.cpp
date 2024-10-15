@@ -1,8 +1,20 @@
 #include <stdio.h>
 
-int main() {
+	int Recursive(int n) {
+		if (n <= 1) {
+			return (100);
+		}
+		return (Recursive(n - 1) * 2 - 50);
+	}
 
-	printf("こんにちは");
+	int main() {
+		int n = 10;
+		int result;
 
-	return 0;
-}
+		result = Recursive(n);
+		printf("%d時間 = %d\n", n, result);
+
+		return (0);
+	}
+
+
