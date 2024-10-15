@@ -8,14 +8,11 @@
 	}
 
 	int Recursive2(int n) {
-		if (n <= 1) {
-			return (100);
-		}
-		return n * 100;
+		return n * 1072;
 	}
 
 	int main() {
-		int n = 4;
+		int n = 9;
 		int result{};
 		int result2{};
 
