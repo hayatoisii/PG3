@@ -1,7 +1,13 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <thread>
+#include <chrono> 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+
 
 void DisplayResult(int* result, int* dice) {
     printf("サイコロの目は%dでした。\n", *dice);
@@ -19,31 +25,23 @@ void setTimeout(void (*callback)(int*, int*), int second, int* result, int* dice
     callback(result, dice);
 }
 
-int numbe1(int dice) {
-    return dice % 2 != 0;
-}
-int numbe2(int dice) {
-    return dice % 2 == 0;
-}
-
 int main() {
     int numbe;
     int dice;
     int result;
 
+    std::srand(static_cast<unsigned int>(std::time(0)));
+
     printf("サイコロの目が奇数(1)か偶数(2)かどっち→ ");
     scanf_s("%d", &numbe);
 
-    dice = rand() % 6 + 1;
+    dice = std::rand() % 6 + 1;
 
-    int (*funcArr[2])(int) = { numbe1, numbe2 };
+    auto checkOddEven = (numbe == 1)
+    ? [](int dice) { return dice % 2 != 0; }
+    : [](int dice) { return dice % 2 == 0; };
 
-    if (funcArr[numbe - 1](dice)) {
-        result = 1;
-    }
-    else {
-        result = 0;
-    }
+    result = checkOddEven(dice) ? 1 : 0;
 
     setTimeout(DisplayResult, 3, &result, &dice);
 
